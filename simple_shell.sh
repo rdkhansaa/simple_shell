@@ -5,7 +5,7 @@ while true; do
     echo -n "#cisfun$ "
 
     # Read user input
-    read command
+    read -r command
 
     # Check for the end of file (Ctrl+D)
     if [ -z "$command" ]; then
@@ -14,9 +14,9 @@ while true; do
     fi
 
     # Execute the command using execve
-    if [ -x "$command" ]; then
-        exec ./$command
+    if command -v "$command" > /dev/null; then
+        $command
     else
-        echo "$0: $command: No such file or directory"
+        echo "$0: $command: command not found"
     fi
 done
